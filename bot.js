@@ -2,7 +2,7 @@ var irc = require('irc');
 var title = require('url-to-title');
 
 var config = {
-	server: 'cortana.freech.at',
+	server: 'chat.freenode.net',
 	nickname: 'snarfit',
 	options: {
 		userName: 'SnarfIT',
@@ -39,19 +39,21 @@ var config = {
 		}
 
 		for (var ignored in config.ignore.nicks) {
-			if (from == ignored) {
+			if (from == config.ignore.nicks[ignored]) {
+				console.log('ignoring from: '+from);
 				return;
 			}
 		}
 
 		if (from != client.nick && (url = message.match(/https?\:\/\/[^\s]+/))) {
-			for (ignored in config.ignore.strings) {
-				if (ignored.match(url)) {
+			for (ignored in config.ignore.urls) {
+				if (String(url).match(config.ignore.urls[ignored])) {
+					console.log('ignoring url: '+url);
 					return;
 				}
 			}
+
 			title(url).then(function(title) {
-				console.log(url+': '+title);
 				client.say(to, url+': '+title);
 			});
 		}
