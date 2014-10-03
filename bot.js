@@ -13,6 +13,14 @@ var config = {
 		channels: [
 			'#ubuntu-uk'
 		]
+	},
+	ignore: {
+		nicks: [
+			'lubotu3'
+		],
+		urls: [
+			/launchpad\.net.*\/bugs\//
+		]
 	}
 };
 
@@ -30,7 +38,18 @@ var config = {
 			to = from;
 		}
 
+		for (var ignored in config.ignore.nicks) {
+			if (from == ignored) {
+				return;
+			}
+		}
+
 		if (from != client.nick && (url = message.match(/https?\:\/\/[^\s]+/))) {
+			for (ignored in config.ignore.strings) {
+				if (ignored.match(url)) {
+					return;
+				}
+			}
 			title(url).then(function(title) {
 				console.log(url+': '+title);
 				client.say(to, url+': '+title);
