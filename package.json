@@ -1,0 +1,15 @@
+{
+  "name": "snarfit",
+  "version": "0.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Llewellyn",
+  "license": "AGPL",
+  "dependencies": {
+    "irc": "^0.3.7",
+    "url-to-title": "^1.0.3"
+  }
+}
